@@ -174,4 +174,4 @@ spec:
   type: LoadBalancer
 </code></pre>
 
-![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_get_ip.png.png)
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_get_ip.png)
