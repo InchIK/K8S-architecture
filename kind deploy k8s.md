@@ -175,3 +175,30 @@ spec:
 </code></pre>
 
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_get_ip.png)
+
+## 需求: 4. 安裝 Prometheus, node exporter, kube-state-metrics 在infra node 節點上，Prometheus 收集node exporter, kube-state-metrics的效能數據
+
+## HELM 新增 prometheus-community
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm show values prometheus-community/kube-prometheus-stack > values.yaml
+## A. 修改values.yaml Prometheus, node exporter, kube-state-metrics 加上親和性，僅佈署在ha-worker
+<pre><code>
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-role
+                operator: In
+                values:
+                  - infra
+</code></pre>
+
+## B. values.yaml註解掉 grafana
+grafana:
+  enabled: false
+
+## C. 安裝 prometheus  
+helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring -f values.yaml
+
