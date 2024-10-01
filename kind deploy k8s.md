@@ -44,6 +44,7 @@ worker 節點名稱是 ha-worker, ha-worker2，然後打上 labels：
 為 Application nodes 打上 label:
 
 #### kubectl label node ah-worker2 node-role=app
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_labels.png)
 
 # 需求: 3. 安裝 MetalLB ，以L2 模式安裝，speaker 部署在 infra node上。
 
