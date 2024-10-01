@@ -21,6 +21,8 @@ nodes:
 
 #### kubectl get nodes
 
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_1.png)
+
 ## D.  為node打上labels
 
 當叢集建立完成後，您可以使用 kubectl 給 Infra nodes 和 Application nodes 打上 labels。
@@ -28,6 +30,8 @@ nodes:
 先列出所有節點，識別 worker 節點的名稱：
 
 #### kubectl get nodes
+
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_2.png)
 
 假設 worker 節點名稱是 kind-worker, kind-worker2，然後打上 labels：
 
