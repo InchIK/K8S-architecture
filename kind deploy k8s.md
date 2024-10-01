@@ -1,4 +1,4 @@
-## 需求:  1. 請以kind 架設一個3個control-plane 節點，以及4個worker 節點 。
+# 需求:  1. 請以kind 架設一個3個control-plane 節點，以及4個worker 節點 。
 
 ## A. 建立 1 control-plane 跟 2 worker  in kind-cluster-config.yaml
 #### (資源不足以建立3 control-plane 4 worker 以1:2替代)
@@ -23,7 +23,7 @@ nodes:
 
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_1.png)
 
-## 需求: 2. 節點分為2群角色或功能
+# 需求: 2. 節點分為2群角色或功能
 
 ## A.  為node打上labels
 
@@ -45,7 +45,7 @@ worker 節點名稱是 ha-worker, ha-worker2，然後打上 labels：
 
 #### kubectl label node ah-worker2 node-role=app
 
-## 需求: 3. 安裝 MetalLB ，以L2 模式安裝，speaker 部署在 infra node上。
+# 需求: 3. 安裝 MetalLB ，以L2 模式安裝，speaker 部署在 infra node上。
 
 ## A. 安裝  Nginx Ingress Controller
 
@@ -130,7 +130,7 @@ spec:
 
 ## H. 驗證LoadBlance是否要到IP
 
-Create Nginx
+#### Create Nginx
 <pre><code>
 apiVersion: apps/v1
 kind: Deployment
@@ -155,7 +155,7 @@ spec:
         - containerPort: 80 
 </code></pre>
 
-Create Service
+#### Create Service
 <pre><code>
 apiVersion: v1
 kind: Service
@@ -176,12 +176,12 @@ spec:
 
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_get_ip.png)
 
-## 需求: 4. 安裝 Prometheus, node exporter, kube-state-metrics 在infra node 節點上，Prometheus 收集node exporter, kube-state-metrics的效能數據
+# 需求: 4. 安裝 Prometheus, node exporter, kube-state-metrics 在infra node 節點上，Prometheus 收集node exporter, kube-state-metrics的效能數據
 
 ## HELM 新增 prometheus-community
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo update
-helm show values prometheus-community/kube-prometheus-stack > values.yaml
+#### helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+#### helm repo update
+#### helm show values prometheus-community/kube-prometheus-stack > values.yaml
 ## A. 修改values.yaml Prometheus, node exporter, kube-state-metrics 加上親和性，僅佈署在ha-worker
 <pre><code>
   affinity:
@@ -200,6 +200,6 @@ grafana:
   enabled: false
 
 ## C. 安裝 prometheus  
-helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring -f values.yaml
+#### helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring -f values.yaml
 
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_node-exporter.png)
