@@ -7,10 +7,19 @@
 <pre><code>
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
+networking:
+  #disableDefaultCNI: true
 nodes:
-  - role: control-plane
-  - role: worker # Infra node 
-  - role: worker # Application node 
+- role: control-plane
+  extraPortMappings:
+    - containerPort: 30090   
+      hostPort: 30090
+      protocol: TCP
+    - containerPort: 31717  
+      hostPort: 31717
+      protocol: TCP
+- role: worker
+- role: worker
 </code></pre>
 
 ## B. 建立集群 
@@ -43,7 +52,7 @@ worker 節點名稱是 ha-worker, ha-worker2，然後打上 labels：
 
 為 Application nodes 打上 label:
 
-#### kubectl label node ah-worker2 node-role=app
+#### kubectl label node ha-worker2 node-role=app
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_labels.png)
 
 # 需求: 3. 安裝 MetalLB ，以L2 模式安裝，speaker 部署在 infra node上。
@@ -59,6 +68,8 @@ worker 節點名稱是 ha-worker, ha-worker2，然後打上 labels：
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_ingress.png)
 
 ## B. 安裝  修改ipvs
+
+### kubectl edit configmap -n kube-system kube-proxy
 
 加入 ipvs設定
 <pre><code>
@@ -103,6 +114,8 @@ kubectl patch daemonset speaker -n metallb-system --patch '{
 
 ## F. 建立IP-Pool
 
+### kubectl apply -f ip_pool.yaml
+
 <pre><code>
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -111,10 +124,12 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 10.1.185.1-10.1.185.5
+  - 10.1.5.220-10.1.5.224
 </code></pre>
 
 ## G. 建立L2-Advertrisement，與ipv4pool binding
+
+### kubectl apply -f L2advertisement.yaml
 
 <pre><code>
 apiVersion: metallb.io/v1beta1
