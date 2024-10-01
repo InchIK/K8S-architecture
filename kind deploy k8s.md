@@ -202,3 +202,4 @@ grafana:
 ## C. 安裝 prometheus  
 helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring -f values.yaml
 
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_node-exporter.png)
