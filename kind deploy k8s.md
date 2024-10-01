@@ -23,6 +23,8 @@ nodes:
 
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_1.png)
 
+## 需求: 2. 節點分為2群角色或功能
+
 ## D.  為node打上labels
 
 當叢集建立完成後，您可以使用 kubectl 給 Infra nodes 和 Application nodes 打上 labels。
@@ -33,14 +35,14 @@ nodes:
 
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_2.png)
 
-假設 worker 節點名稱是 kind-worker, kind-worker2，然後打上 labels：
+worker 節點名稱是 ha-worker, ha-worker2，然後打上 labels：
 
 為 Infra nodes 打上 label:
 
-#### kubectl label node kind-worker node-role=infra
+#### kubectl label node ha-worker node-role=infra
 
 為 Application nodes 打上 label:
 
-#### kubectl label node kind-worker2 node-role=app
+#### kubectl label node ah-worker2 node-role=app
 
 
