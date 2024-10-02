@@ -5,5 +5,4 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  # 可分配的 IP 地址,可以指定多个，包括 ipv4、ipv6
   - 10.1.5.220-10.1.5.224

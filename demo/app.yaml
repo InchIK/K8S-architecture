@@ -16,7 +16,7 @@ spec:
         node-role: app 
       containers:
       - name: my-app-container
-        image: nginx  # 替換為你自己的容器映像
+        image: nginx  
         resources:
           requests:
             cpu: "100m"

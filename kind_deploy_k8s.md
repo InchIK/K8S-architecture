@@ -1,6 +1,8 @@
 ### 1. 所有圖檔在image目錄內
 ### 2. 所有有操作均在說明內
 ### 3. yaml在demo目錄內
+### 說明: 因kind佈署完後，還需細部修改etcd等設定，才能被Prometheus抓取相關數值指標,其container_cpu_cfs_throttled_periods_total指標也未能完善，
+###      ,還有在Grafana面板所需相關PromQL查詢，有經由chatgpt相關指引參考修改
 
 # 需求:  1. 請以kind 架設一個3個control-plane 節點，以及4個worker 節點 。
 
