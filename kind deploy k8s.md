@@ -219,3 +219,60 @@ grafana:
 #### helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring -f values.yaml
 
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_node-exporter.png)
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_prometheus.png)
+
+# 需求: 5. 安裝 Grafana 在kind叢集外，以docker或podman 執行，datasouce指向 Prometheus，並呈現3個效能監控儀表板。
+
+### docker pull grafana/grafana
+
+### docker run -d --name=grafana -p 3000:3000 grafana/grafana
+
+## datasouce指向 Prometheus
+
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_datasource.png)
+
+## Grafana 面板
+
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_grafana.png)
+
+## CPU 使用率
+
+### 說明: 用來監控 Node 的 CPU 資源是否有過度使用或不足，以避免單個節點成為性能瓶頸。
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_g_cpu.png)
+
+## 記憶體使用率
+
+### 說明: 測量記憶體的使用情況，檢查是否有記憶體資源耗盡的風險，防止 OOM（Out Of Memory）錯誤發生。
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_g_memory.png)
+
+## 磁碟 I/O 使用率
+
+### 說明: 磁碟 I/O 是系統效能的關鍵因素，過度使用會導致應用程式讀寫延遲，應該保持在合理的範圍內。
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_g_io.png)
+
+## Pod 數量
+
+### 說明: 監控集群中運行的 Pod 數量，確保集群中有足夠的資源來運行 Pod，並及時處理 Pod 的失效或過多的情況。
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_g_pod.png)
+
+## etcd 目標數量
+
+### 說明: 檢查 etcd 叢集的 leader 狀態，確保叢集中至少有一個節點是 leader 並處於正常狀態。
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_g_number.png)
+
+## etcd 物件存儲大小
+
+### 說明: 檢查 etcd 資料庫大小，以防止資料庫過大導致效能下降或儲存不足。
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_size.png)
+
+### 以上要觀察CPU Throttling不足，因為 CPU Throttling 是由於容器資源限制導致的情況，需要專門的指標來監控這一現象。
+
+## CPU Throttling現象 
+
+### 可利用container_cpu_cfs_throttled_periods_total指標進行觀察，因本次Lab為kind及資源不足，以下為本人服務公司所使用grafana面板用來觀測CPU Throttling
+
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_CPU_Throttling.png)
+
+# 需求: 6. 請部署一個容器應用程式在application node，建立一個hpa物件以cpu 使用率到達50%為條件，最多擴充到10個pod。
+
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_hpa.png)
