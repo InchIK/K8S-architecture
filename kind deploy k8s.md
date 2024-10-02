@@ -258,12 +258,12 @@ grafana:
 ## etcd 目標數量
 
 ### 說明: 檢查 etcd 叢集的 leader 狀態，確保叢集中至少有一個節點是 leader 並處於正常狀態。
-![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_g_number.png)
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_g_etcd_number.png)
 
 ## etcd 物件存儲大小
 
 ### 說明: 檢查 etcd 資料庫大小，以防止資料庫過大導致效能下降或儲存不足。
-![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_size.png)
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_g_etcd_size.png)
 
 ### 以上要觀察CPU Throttling不足，因為 CPU Throttling 是由於容器資源限制導致的情況，需要專門的指標來監控這一現象。
 
