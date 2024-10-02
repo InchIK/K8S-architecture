@@ -1,3 +1,7 @@
+### 說明所有圖檔在image目錄內
+### 所以有操作均在說明內
+### yaml在demo目錄內
+
 # 需求:  1. 請以kind 架設一個3個control-plane 節點，以及4個worker 節點 。
 
 ## A. 建立 1 control-plane 跟 2 worker  in kind-cluster-config.yaml
@@ -276,3 +280,7 @@ grafana:
 # 需求: 6. 請部署一個容器應用程式在application node，建立一個hpa物件以cpu 使用率到達50%為條件，最多擴充到10個pod。
 
 ![image](https://github.com/InchIK/K8S-architecture/blob/master/image/k8s_hpa.png)
+
+# 架構圖
+
+![image](https://github.com/InchIK/K8S-architecture/blob/master/image/architecture_diagram.png)
